@@ -3,9 +3,13 @@
         Column,
         Content,
         Grid,
-        Header, ImageLoader, Row, StructuredList, StructuredListBody, StructuredListCell, StructuredListRow,
+        Header, ImageLoader, Row, StructuredList, StructuredListBody,
     } from "carbon-components-svelte";
     import ValidationResult from "./components/ValidationResult.svelte";
+    import ValidationStep from "./components/ValidationStep.svelte";
+    import EntranceData from "./components/EntranceData.svelte";
+    import ValidationBlock from "./components/ValidationBlock.svelte";
+
 </script>
 
 <Header company="СПбСО" platformName="Регистрация на бал">
@@ -31,25 +35,18 @@
                     </Row>
                     <Row>
                         <Column>
-                            <StructuredList>
-                                <StructuredListBody>
-                                    <StructuredListRow>
-                                        <StructuredListCell>Билет</StructuredListCell>
-                                    </StructuredListRow>
-                                    <StructuredListRow>
-                                        <StructuredListCell>QR-код</StructuredListCell>
-                                    </StructuredListRow>
-                                    <StructuredListRow>
-                                        <StructuredListCell>РСО</StructuredListCell>
-                                    </StructuredListRow>
-                                </StructuredListBody>
-                            </StructuredList>
+                            <ValidationBlock/>
                         </Column>
                         <Column>
-                            <ValidationResult ok={true} />
+                            <ValidationResult ok={true}/>
                         </Column>
                     </Row>
                 </Grid>
+            </Column>
+        </Row>
+        <Row>
+            <Column>
+                <EntranceData/>
             </Column>
         </Row>
     </Grid>

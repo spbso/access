@@ -1,0 +1,13 @@
+appId: "ru.spb.spbso.access"
+
+# Package app code into a asar archive. Set to false to debug issues.
+asar: true
+
+# Mac OS configuration
+mac:
+  icon: "public/icons/AppIcon.icns"
+  category: "public.app-category.utilities"
+  darkModeSupport: true
+
+win:
+  target: "portable"

@@ -12,7 +12,8 @@
     "app": "electron .",
     "dist:mac": "electron-builder --dir --mac --config electron-builder.yml",
     "dist:win": "electron-builder --dir --win --config electron-builder.yml",
-    "app-dev": "concurrently \"npm:dev\" \"npm:app\""
+    "app-dev": "concurrently \"npm:dev\" \"npm:app\"",
+    "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "dependencies": {
     "@carbon/colors": "^10.36.0",
@@ -52,7 +53,12 @@
     "stylelint-config-standard": "^25.0.0",
     "stylelint-config-standard-scss": "^3.0.0",
     "svelte": "^3.0.0",
-    "svelte-preprocess": "^4.10.4",
-    "svelte-preprocess-sass": "^2.0.1"
+    "svelte-preprocess": "^4.0.0",
+    "svelte-preprocess-sass": "^2.0.1",
+    "svelte-check": "^2.0.0",
+    "@rollup/plugin-typescript": "^8.0.0",
+    "typescript": "^4.0.0",
+    "tslib": "^2.0.0",
+    "@tsconfig/svelte": "^2.0.0"
   }
 }

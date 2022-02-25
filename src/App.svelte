@@ -12,8 +12,7 @@
     onMount(() => {
         $username = 'Алексей Найден'
         loadPeople();
-        $currentPerson = $peopleById.get('4')
-        console.log($currentPerson)
+        // $currentPerson = $peopleById.get('4')
     });
 
 </script>
@@ -33,12 +32,16 @@
                 </div>
 
                 <div class="col-span-4 row-span-2 flex flex-col justify-end">
-                    <ValidationBlock />
+                    <ValidationBlock/>
                 </div>
 
                 <div class="row-span-2 col-span-3 bg-green">
                     <ValidationResult/>
                 </div>
+            </div>
+        {:else}
+            <div class="w-full h-full text-3xl text-center pt-16 pb-16 font-bold bg-slate-200">
+                Отсканируйте карточку
             </div>
         {/if}
         <Log/>

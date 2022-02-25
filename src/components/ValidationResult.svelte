@@ -1,11 +1,11 @@
 <script lang="ts">
     import Heroicon from '@martinse/svelte-heroicons';
     import {check, ban} from '@martinse/svelte-heroicons/dist/solid';
+    import {currentPerson} from "../stores/currentPerson";
 
-    export let ok;
     let bgClass, icon;
     $: {
-        if (ok) {
+        if ($currentPerson.isValid()) {
             bgClass = 'bg-green-600';
             icon = check;
         } else {
@@ -15,10 +15,9 @@
     }
 </script>
 
-<div class="w-full h-full {bgClass} text-white text-8xl flex place-content-center items-center rounded-2xl"
-     on:click={() => ok=!ok}>
+<div class="w-full h-full {bgClass} text-white text-8xl flex place-content-center items-center rounded-2xl">
     <div>
-        {#key icon}
+        {#key $currentPerson}
             <Heroicon icon={icon}/>
         {/key}
     </div>

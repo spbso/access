@@ -11,5 +11,5 @@
 </script>
 <li class={itemClass}>
     <Heroicon icon={icon} />
-    <span class="font-semibold">{text}</span>: {details}
+    <span class="font-semibold">{text}</span> {details}
 </li>

@@ -1,8 +1,12 @@
 <script lang="ts">
     import ValidationStep from "./ValidationStep.svelte";
+    import {currentPerson} from "../stores/currentPerson";
 </script>
 
 <ul class="leading-10">
-    <ValidationStep ok={true} text="QR-код" details="действует"/>
-    <ValidationStep ok={false} text="РСО" details="истекает через 4 дня"/>
+    {#key $currentPerson}
+        <ValidationStep ok={$currentPerson.ticket} text="Билет" details=""/>
+        <ValidationStep ok={$currentPerson.isQrValid()} text="QR-код" details=""/>
+        <ValidationStep ok={$currentPerson.isRsoValid()} text="РСО" details=""/>
+    {/key}
 </ul>

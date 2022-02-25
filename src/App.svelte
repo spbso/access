@@ -2,48 +2,45 @@
     import Photo from "./components/Photo.svelte"
     import ValidationResult from "./components/ValidationResult.svelte";
     import ValidationBlock from "./components/ValidationBlock.svelte";
-    import Heroicon from '@martinse/svelte-heroicons';
-    import {user} from '@martinse/svelte-heroicons/dist/solid';
     import Log from "./components/Log.svelte";
     import {onMount} from "svelte";
     import {username} from "./stores/user";
+    import {loadPeople, people, peopleById} from "./stores/people";
+    import {currentPerson} from "./stores/currentPerson";
+    import Header from "./components/Header.svelte";
 
-    let eventName = "Вход на бал"
     onMount(() => {
         $username = 'Алексей Найден'
+        loadPeople();
+        $currentPerson = $peopleById.get('4')
+        console.log($currentPerson)
     });
+
 </script>
 
-<header class="pb-3">
-    <div class="bg-indigo-900 text-white leading-loose pl-3 pt-1 pb-1">
-        <span class="font-bold text-2xl">СПбСО</span>
-        <span class="text-xl text-silver">{eventName}</span>
-        <span class="inline-block">
-            <button><Heroicon icon={user}/></button>
-            {$username}
-        </span>
-    </div>
-</header>
+<Header eventName="Бал"/>
 
 <main>
     <div class="container mx-auto">
-        <div class="grid gap-4 grid-cols-10 grid-rows-3">
-            <div class="row-span-3 col-span-3">
-                <Photo/>
-            </div>
-            <div class="col-span-7">
-                <div class="text-3xl">Найден Алексей Владимирович</div>
-                <div class="text-2xl">СПО Северный Ветер</div>
-            </div>
+        {#if $currentPerson}
+            <div class="grid gap-4 grid-cols-10 grid-rows-3">
+                <div class="row-span-3 col-span-3">
+                    <Photo/>
+                </div>
+                <div class="col-span-7">
+                    <div class="text-3xl">{$currentPerson.fio}</div>
+                    <div class="text-2xl">{$currentPerson.brigade}</div>
+                </div>
 
-            <div class="col-span-4 row-span-2 flex flex-col justify-end">
-                <ValidationBlock/>
-            </div>
+                <div class="col-span-4 row-span-2 flex flex-col justify-end">
+                    <ValidationBlock />
+                </div>
 
-            <div class="row-span-2 col-span-3 bg-green">
-                <ValidationResult ok={true}/>
+                <div class="row-span-2 col-span-3 bg-green">
+                    <ValidationResult/>
+                </div>
             </div>
-        </div>
+        {/if}
         <Log/>
     </div>
 </main>

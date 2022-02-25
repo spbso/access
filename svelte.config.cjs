@@ -8,7 +8,7 @@ const config = {
         icons(),
         pictograms(),
         preprocess({
-            // postcss: true,
+            postcss: true,
         }),
     ],
 };

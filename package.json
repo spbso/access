@@ -6,29 +6,34 @@
   "description": "App that controls access to the events of SPbSO",
   "author": "Alexey Naiden <alexey.nayden@gmail.com>",
   "scripts": {
-    "build": "rollup -c",
-    "dev": "rollup -c -w",
+    "watch:tailwind": "postcss public/tailwind.css -o public/index.css -w",
+    "build:tailwind": "cross-env NODE_ENV=production postcss public/tailwind.css -o public/index.css",
+    "build": "yarn build:tailwind && rollup -c",
+    "dev": "concurrently \"rollup -c -w\" \"yarn watch:tailwind\"",
     "start": "sirv public --no-clear",
     "app": "electron .",
     "dist:mac": "electron-builder --dir --mac --config electron-builder.yml",
     "dist:win": "electron-builder --dir --win --config electron-builder.yml",
-    "app-dev": "concurrently \"npm:dev\" \"npm:app\"",
+    "app-dev": "concurrently \"yarn:dev\" \"yarn:app\" \"yarn watch:tailwind\"",
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "dependencies": {
-    "@carbon/colors": "^10.36.0",
+    "@martinse/svelte-heroicons": "^0.1.4",
+    "@tailwindcss/aspect-ratio": "^0.4.0",
+    "cross-env": "^7.0.3",
     "electron-is-dev": "^2.0.0",
     "electron-reload": "^2.0.0-alpha.1",
+    "nanostores": "^0.5.10",
     "postcss-preset-env": "^7.4.1"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
+    "@rollup/plugin-typescript": "^8.0.0",
+    "@tsconfig/svelte": "^2.0.0",
     "atcss": "^2.0.0",
     "autoprefixer": "^10.4.2",
-    "carbon-components-svelte": "^0.59.0",
-    "carbon-icons-svelte": "^10.44.4",
-    "carbon-preprocess-svelte": "^0.6.0",
     "concurrently": "^7.0.0",
     "electron": "^17.1.0",
     "electron-builder": "^22.14.13",
@@ -53,12 +58,11 @@
     "stylelint-config-standard": "^25.0.0",
     "stylelint-config-standard-scss": "^3.0.0",
     "svelte": "^3.0.0",
+    "svelte-check": "^2.0.0",
     "svelte-preprocess": "^4.0.0",
     "svelte-preprocess-sass": "^2.0.1",
-    "svelte-check": "^2.0.0",
-    "@rollup/plugin-typescript": "^8.0.0",
-    "typescript": "^4.0.0",
+    "tailwindcss": "^3.0.12",
     "tslib": "^2.0.0",
-    "@tsconfig/svelte": "^2.0.0"
+    "typescript": "^4.0.0"
   }
 }

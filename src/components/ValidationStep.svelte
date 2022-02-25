@@ -1,31 +1,15 @@
 <script lang="ts">
-    import {StructuredListCell, StructuredListRow} from "carbon-components-svelte";
-    import FaceActivatedFilled32 from "carbon-icons-svelte/lib/FaceActivatedFilled32/FaceActivatedFilled32.svelte";
-    import FaceDissatisfiedFilled32
-        from "carbon-icons-svelte/lib/FaceDissatisfiedFilled32/FaceDissatisfiedFilled32.svelte";
+    import Heroicon from '@martinse/svelte-heroicons';
+    import {check, ban} from '@martinse/svelte-heroicons/dist/solid';
 
     export let ok;
     export let text;
+    export let details;
+
+    const itemClass = ok ? 'text-green-600' : 'text-rose-900';
+    const icon = ok ? check : ban;
 </script>
-<StructuredListRow>
-    <StructuredListCell>
-        {#if ok}
-            <FaceActivatedFilled32 height="10rem" width="10rem" on:click={() => ok = !ok} class={ok ? 'validation-step__ok' : 'validation-step__fail'}/>
-        {:else}
-            <FaceDissatisfiedFilled32 height="10rem" width="10rem" on:click={() => ok = !ok} class={ok ? 'validation-step__ok' : 'validation-step__fail'}/>
-        {/if}
-    </StructuredListCell>
-    <StructuredListCell>{text}</StructuredListCell>
-</StructuredListRow>
-
-<style lang="scss">
-  @import 'node_modules/@carbon/colors/scss/colors.scss';
-
-  :global(.validation-step__fail) {
-    color: $red-60;
-  }
-
-  :global(.validation-step__ok) {
-    color: $green-50;
-  }
-</style>
+<li class={itemClass}>
+    <Heroicon icon={icon} />
+    <span class="font-semibold">{text}</span>: {details}
+</li>

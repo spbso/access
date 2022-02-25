@@ -4,6 +4,7 @@
     import {username} from "../stores/user";
     import {currentPerson} from "../stores/currentPerson";
     import {peopleById} from "../stores/people";
+    import {log} from "../stores/log";
 
     export let eventName: string;
 
@@ -12,6 +13,7 @@
     const checkCard = () => {
         $currentPerson = $peopleById.get(freshCardId);
         console.log($currentPerson)
+        log($currentPerson)
     }
 </script>
 

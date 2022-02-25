@@ -1,5 +1,5 @@
 <script lang="ts">
-    let items = [1, 2, 3, 4, 5];
+    import {logRecords} from "../stores/log";
 </script>
 
 <table class="table-auto w-full mt-5">
@@ -12,12 +12,12 @@
     </tr>
     </thead>
     <tbody>
-    {#each items as item}
+    {#each $logRecords as record}
         <tr>
-            <td>17:34:45</td>
-            <td>Найден Алексей Владимирович</td>
-            <td>СПО Северный Ветер</td>
-            <td>ОК</td>
+            <td>{record.timestamp}</td>
+            <td>{record.fio}</td>
+            <td>{record.brigade}</td>
+            <td>{record.ticket && record.qr && record.rso}</td>
         </tr>
     {/each}
     </tbody>

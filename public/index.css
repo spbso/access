@@ -529,6 +529,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 .rounded-2xl {
   border-radius: 1rem;
 }
+.bg-slate-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgba(226, 232, 240, var(--tw-bg-opacity));
+}
 .bg-indigo-900 {
   --tw-bg-opacity: 1;
   background-color: rgba(49, 46, 129, var(--tw-bg-opacity));
@@ -541,21 +545,15 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-bg-opacity: 1;
   background-color: rgba(136, 19, 55, var(--tw-bg-opacity));
 }
-.bg-slate-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgba(100, 116, 139, var(--tw-bg-opacity));
-}
-.bg-slate-100 {
-  --tw-bg-opacity: 1;
-  background-color: rgba(241, 245, 249, var(--tw-bg-opacity));
-}
-.bg-slate-200 {
-  --tw-bg-opacity: 1;
-  background-color: rgba(226, 232, 240, var(--tw-bg-opacity));
-}
 .object-contain {
   -o-object-fit: contain;
      object-fit: contain;
+}
+.pt-16 {
+  padding-top: 4rem;
+}
+.pb-16 {
+  padding-bottom: 4rem;
 }
 .pb-3 {
   padding-bottom: 0.75rem;
@@ -569,17 +567,12 @@ Ensure the default browser behavior of the `hidden` attribute.
 .pb-1 {
   padding-bottom: 0.25rem;
 }
-.pt-16 {
-  padding-top: 4rem;
-}
-.pb-8 {
-  padding-bottom: 2rem;
-}
-.pb-16 {
-  padding-bottom: 4rem;
-}
 .text-center {
   text-align: center;
+}
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
 }
 .text-2xl {
   font-size: 1.5rem;
@@ -588,10 +581,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem;
-}
-.text-3xl {
-  font-size: 1.875rem;
-  line-height: 2.25rem;
 }
 .text-8xl {
   font-size: 6rem;
@@ -624,14 +613,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-rose-900 {
   --tw-text-opacity: 1;
   color: rgba(136, 19, 55, var(--tw-text-opacity));
-}
-.drop-shadow-lg {
-  --tw-drop-shadow: drop-shadow(0 10px 8px rgba(0, 0, 0, 0.04)) drop-shadow(0 4px 3px rgba(0, 0, 0, 0.1));
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
-.drop-shadow-2xl {
-  --tw-drop-shadow: drop-shadow(0 25px 25px rgba(0, 0, 0, 0.15));
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 .drop-shadow-xl {
   --tw-drop-shadow: drop-shadow(0 20px 13px rgba(0, 0, 0, 0.03)) drop-shadow(0 8px 5px rgba(0, 0, 0, 0.08));

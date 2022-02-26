@@ -1,5 +1,7 @@
-import {derived, writable} from "svelte/store";
-import {fakeTickets as testData} from "../data/FakeTickets";
+import {derived, writable} from "svelte/store"
+import {fakeTickets as testData} from "../data/FakeTickets"
+import {formatDistance} from 'date-fns'
+import {ru} from 'date-fns/locale'
 
 
 export class Person {
@@ -24,15 +26,37 @@ export class Person {
     }
 
     isRsoValid(): boolean {
-        const timestamp = Number(new Date())/1000
-        console.log('ts', timestamp)
-        console.log('rso', this.rso)
+        const timestamp = Number(new Date()) / 1000
         return (this.rso ?? 0) >= timestamp
     }
 
+    rsoDetails(): string {
+        if (this.isRsoValid()) {
+            return ""
+        } else {
+            if (this.rso ?? 0 > 0) {
+                return `истекло ${formatDistance(this.rso*1000, new Date(), {addSuffix: true, locale: ru})}`
+            } else {
+                return "нет данных"
+            }
+        }
+    }
+
     isQrValid(): boolean {
-        const timestamp = Number(new Date())/1000
+        const timestamp = Number(new Date()) / 1000
         return (this.qr ?? 0) >= timestamp
+    }
+
+    qrDetails(): string {
+        if (this.isQrValid()) {
+            return ""
+        } else {
+            if (this.qr ?? 0 > 0) {
+                return `закончился ${formatDistance(this.qr*1000, new Date(), {addSuffix: true, locale: ru})}`
+            } else {
+                return "нет данных"
+            }
+        }
     }
 }
 

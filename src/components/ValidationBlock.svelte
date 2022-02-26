@@ -6,7 +6,7 @@
 <ul class="leading-10">
     {#key $currentPerson}
         <ValidationStep ok={$currentPerson.ticket} text="Билет"/>
-        <ValidationStep ok={$currentPerson.isQrValid()} text="QR-код"/>
-        <ValidationStep ok={$currentPerson.isRsoValid()} text="РСО"/>
+        <ValidationStep ok={$currentPerson.isQrValid()} text="QR-код" details={$currentPerson.qrDetails()}/>
+        <ValidationStep ok={$currentPerson.isRsoValid()} text="РСО" details={$currentPerson.rsoDetails()}/>
     {/key}
 </ul>

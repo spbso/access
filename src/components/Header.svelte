@@ -9,25 +9,44 @@
     export let eventName: string;
 
     let freshCardId: string = null
+    let usernameValue = ''
+    let loginVisible = false
 
     const checkCard = () => {
         $currentPerson = $peopleById.get(freshCardId);
         console.log($currentPerson)
         log($currentPerson)
     }
+
+    const setUsername = () => {
+        $username = usernameValue
+        loginVisible = false
+    }
+
+    const toggleLogin = () => {
+        loginVisible = !loginVisible;
+    }
+
 </script>
 
 <header class="pb-3">
-    <div class="bg-indigo-900 text-white leading-loose pl-3 pt-1 pb-1">
-        <span class="font-bold text-2xl">СПбСО</span>
-        <span class="text-xl text-silver">{eventName}</span>
-        <span class="inline-block">
-            <button><Heroicon icon={user}/></button>
-            {$username}
-        </span>
-        <span class="inline-block">
-            <input type="text" bind:value={freshCardId} class="text-black"/>
-            <button on:click={checkCard}>Проверить</button>
-        </span>
+    <div class="bg-indigo-900 text-white leading-loose pl-3 pt-1 pb-1 flex">
+        <div class="font-bold text-2xl">СПбСО</div>
+        <div class="text-xl text-silver ml-3">{eventName}</div>
+        <div class="block ml-6">
+            <input type="text" bind:value={freshCardId} class="text-black rounded-xl px-2 w-16"/>
+            <button class="hover:bg-indigo-700 px-2 rounded-lg" on:click={checkCard}>Проверить</button>
+        </div>
+        <div class="block ml-auto mr-3">
+            <button class="hover:bg-indigo-700 rounded-lg px-3" on:click={toggleLogin}>
+                <Heroicon icon={user}/> {$username ?? 'Войдите в систему'}</button>
+            {#if loginVisible}
+                <div id="login-form" class="absolute right-0 bg-white text-black p-2 rounded-lg border">
+                    <input type="text" placeholder="Имя и фамилия" class="border rounded-lg border-indigo-900 px-1"
+                           bind:value={usernameValue}/>
+                    <button class="border px-2 rounded-lg hover:bg-indigo-700" on:click={setUsername}>OK</button>
+                </div>
+            {/if}
+        </div>
     </div>
 </header>

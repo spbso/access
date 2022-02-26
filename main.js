@@ -15,8 +15,8 @@ if (isDev) {
 function createWindow() {
     // Create the browser window with node integration
     const win = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 1100,
+        height: 700,
         webPreferences: {
             nodeIntegration: true
         }

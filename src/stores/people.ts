@@ -9,8 +9,8 @@ export class Person {
     fio: string;
     brigade: string;
     ticket: boolean;
-    rso: number | null;
-    qr: number | null;
+    rso?: number;
+    qr?: number;
 
     constructor({id, fio, brigade, ticket, rso, qr}) {
         this.id = id
@@ -35,7 +35,7 @@ export class Person {
             return ""
         } else {
             if (this.rso ?? 0 > 0) {
-                return `истекло ${formatDistance(this.rso*1000, new Date(), {addSuffix: true, locale: ru})}`
+                return `истекло ${formatDistance(this.rso * 1000, new Date(), {addSuffix: true, locale: ru})}`
             } else {
                 return "нет данных"
             }
@@ -52,7 +52,7 @@ export class Person {
             return ""
         } else {
             if (this.qr ?? 0 > 0) {
-                return `закончился ${formatDistance(this.qr*1000, new Date(), {addSuffix: true, locale: ru})}`
+                return `закончился ${formatDistance(this.qr * 1000, new Date(), {addSuffix: true, locale: ru})}`
             } else {
                 return "нет данных"
             }

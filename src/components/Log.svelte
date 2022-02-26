@@ -27,9 +27,15 @@
                 <td>{record.fio}</td>
                 <td>{record.brigade}</td>
                 <td>
-                    <Heroicon icon={ticket} class={classForIcon(record.ticket)}/>
-                    <Heroicon icon={qrcode} class={classForIcon(record.qr)}/>
-                    <Heroicon icon={document} class={classForIcon(record.rso)}/>
+                    <abbr title="Наличие билета">
+                        <Heroicon icon={ticket} class={classForIcon(record.ticket)}/>
+                    </abbr>
+                    <abbr title="Действительный QR-код">
+                        <Heroicon icon={qrcode} class={classForIcon(record.qr)}/>
+                    </abbr>
+                    <abbr title="Членство в РСО">
+                        <Heroicon icon={document} class={classForIcon(record.rso)}/>
+                    </abbr>
                 </td>
             </tr>
         {/each}

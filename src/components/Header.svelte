@@ -4,6 +4,7 @@
     import {username} from "../stores/user";
     import {currentPerson} from "../stores/currentPerson";
     import {peopleById} from "../stores/people";
+    import {page} from "../stores/page";
     import {log} from "../stores/log";
 
     export let eventName: string;
@@ -33,11 +34,17 @@
     <div class="bg-indigo-900 text-white leading-loose pl-3 pt-1 pb-1 flex">
         <div class="font-bold text-2xl">СПбСО</div>
         <div class="text-xl text-silver ml-3">{eventName}</div>
-        <div class="block ml-6">
+        <div class="ml-auto">
             <input type="text" bind:value={freshCardId} class="text-black rounded-xl px-2 w-16"/>
             <button class="hover:bg-indigo-700 px-2 rounded-lg" on:click={checkCard}>Проверить</button>
         </div>
-        <div class="block ml-auto mr-3">
+        <nav>
+            <ul class="list-none flex cursor-pointer">
+                <li class="hover:bg-indigo-700 mr-3 px-1 rounded-lg {$page === 'scan' ? 'bg-indigo-500': ''}" on:click={() => $page = 'scan'}>Сканирование</li>
+                <li class="hover:bg-indigo-700 mr-3 px-1 rounded-lg {$page === 'list' ? 'bg-indigo-500': ''}" on:click={() => $page = 'list'}>Списки</li>
+            </ul>
+        </nav>
+        <div class="mr-3">
             <button class="hover:bg-indigo-700 rounded-lg px-3" on:click={toggleLogin}>
                 <Heroicon icon={user}/> {$username ?? 'Войдите в систему'}</button>
             {#if loginVisible}

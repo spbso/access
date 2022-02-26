@@ -11,8 +11,8 @@ export const fakeTickets = [
         "id": "2",
         "fio": "Розов Владимир Владимирович",
         "brigade": "СПО ИнКор",
-        "rso": 1646067922,
-        "qr": 1646067922,
+        "rso": null,
+        "qr": null,
         "ticket": true,
     },
     {

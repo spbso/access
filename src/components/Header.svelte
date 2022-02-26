@@ -6,6 +6,7 @@
     import {peopleById} from "../stores/people";
     import {page} from "../stores/page";
     import {log} from "../stores/log";
+    import {onMount} from "svelte";
 
     export let eventName: string;
 
@@ -28,12 +29,31 @@
         loginVisible = !loginVisible;
     }
 
+    let filePath = 0
+
+    const openClick = async () => {
+        filePath = await window.electronAPI.openFile()
+    }
+
+    onMount(() => {
+        window.electronAPI.handleCounter((event, value) => {
+            const oldValue = filePath
+            const newValue = oldValue + value
+            filePath = newValue
+            event.reply('counter-value', newValue)
+        })
+    })
+
 </script>
 
 <header class="pb-3">
     <div class="bg-indigo-900 text-white leading-loose pl-3 pt-1 pb-1 flex">
         <div class="font-bold text-2xl">СПбСО</div>
         <div class="text-xl text-silver ml-3">{eventName}</div>
+        <div>
+            <button on:click={openClick}>Открыть</button>
+            <span>{filePath}</span>
+        </div>
         <div class="ml-auto">
             <input type="text" bind:value={freshCardId} class="text-black rounded-xl px-2 w-16"/>
             <button class="hover:bg-indigo-700 px-2 rounded-lg" on:click={checkCard}>Проверить</button>

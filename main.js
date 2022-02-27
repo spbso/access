@@ -1,6 +1,7 @@
 const {app, BrowserWindow, ipcMain, dialog, Menu} = require('electron')
 const path = require('path')
 const url = require('url')
+const fs = require('fs')
 
 
 const isDev = require('electron-is-dev');
@@ -29,18 +30,15 @@ function createWindow() {
             label: app.name,
             submenu: [
                 {
-                    click: () => win.webContents.send('update-counter', 1),
-                    label: 'Increment',
+                    accelerator: process.platform === 'darwin' ? 'Cmd+1' : 'Ctrl+1',
+                    click: () => win.webContents.send('set-screen', 'scan'),
+                    label: "Сканирование"
                 },
                 {
-                    click: () => win.webContents.send('update-counter', -1),
-                    label: 'Decrement',
+                    accelerator: process.platform === 'darwin' ? 'Cmd+2' : 'Ctrl+2',
+                    click: () => win.webContents.send('set-screen', 'list'),
+                    label: "Списки"
                 },
-                {
-                    role: 'help',
-                    accelerator: process.platform === 'darwin' ? 'Alt+Cmd+I' : 'Alt+Shift+I',
-                    click: () => { console.log('Electron rocks!') }
-                }
             ]
         }
 
@@ -63,27 +61,34 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
+    const timestamp = Number(new Date())
+    const logFile = fs.createWriteStream(path.join(__dirname, `public/log-${timestamp}.json`))
 
-    ipcMain.on('counter-value', (_event, value) => {
-        console.log(value) // will print value to Node console
+    ipcMain.handle('log-person', (_event, value) => {
+        // TODO: Add timestamp + consider CSV
+        logFile.write(JSON.stringify(value) + "\n")
     })
 
     ipcMain.handle('dialog:openFile', handleFileOpen)
+
     createWindow()
+
     app.on('activate', function () {
         if (BrowserWindow.getAllWindows().length === 0) createWindow()
     })
 })
 
 app.on('window-all-closed', function () {
-    if (process.platform !== 'darwin') app.quit()
+    app.quit()
 })
 
 async function handleFileOpen() {
-    const { canceled, filePaths } = await dialog.showOpenDialog()
+    const {canceled, filePaths} = await dialog.showOpenDialog()
     if (canceled) {
         return
     } else {
-        return filePaths[0]
+        const contents = fs.readFileSync(filePaths[0], {encoding: 'utf8', flag: 'r'})
+        const data = JSON.parse(contents)
+        return data
     }
 }

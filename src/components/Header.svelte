@@ -16,8 +16,10 @@
 
     const checkCard = () => {
         $currentPerson = $peopleById.get(freshCardId);
-        console.log($currentPerson)
         log($currentPerson)
+        if (window.electronAPI) {
+            window.electronAPI.logPerson($currentPerson)
+        }
     }
 
     const setUsername = () => {
@@ -28,40 +30,24 @@
     const toggleLogin = () => {
         loginVisible = !loginVisible;
     }
-
-    let filePath = 0
-
-    const openClick = async () => {
-        filePath = await window.electronAPI.openFile()
-    }
-
-    onMount(() => {
-        window.electronAPI.handleCounter((event, value) => {
-            const oldValue = filePath
-            const newValue = oldValue + value
-            filePath = newValue
-            event.reply('counter-value', newValue)
-        })
-    })
-
 </script>
 
 <header class="pb-3">
     <div class="bg-indigo-900 text-white leading-loose pl-3 pt-1 pb-1 flex">
         <div class="font-bold text-2xl">СПбСО</div>
         <div class="text-xl text-silver ml-3">{eventName}</div>
-        <div>
-            <button on:click={openClick}>Открыть</button>
-            <span>{filePath}</span>
-        </div>
         <div class="ml-auto">
             <input type="text" bind:value={freshCardId} class="text-black rounded-xl px-2 w-16"/>
             <button class="hover:bg-indigo-700 px-2 rounded-lg" on:click={checkCard}>Проверить</button>
         </div>
         <nav>
             <ul class="list-none flex cursor-pointer">
-                <li class="hover:bg-indigo-700 mr-3 px-1 rounded-lg {$page === 'scan' ? 'bg-indigo-500': ''}" on:click={() => $page = 'scan'}>Сканирование</li>
-                <li class="hover:bg-indigo-700 mr-3 px-1 rounded-lg {$page === 'list' ? 'bg-indigo-500': ''}" on:click={() => $page = 'list'}>Списки</li>
+                <li class="hover:bg-indigo-700 mr-3 px-1 rounded-lg {$page === 'scan' ? 'bg-indigo-500': ''}"
+                    on:click={() => $page = 'scan'}>Сканирование
+                </li>
+                <li class="hover:bg-indigo-700 mr-3 px-1 rounded-lg {$page === 'list' ? 'bg-indigo-500': ''}"
+                    on:click={() => $page = 'list'}>Списки
+                </li>
             </ul>
         </nav>
         <div class="mr-3">

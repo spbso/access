@@ -10,8 +10,21 @@
     import Header from "./components/Header.svelte";
     import {page} from "./stores/page";
     import List from "./components/List.svelte";
+    import {eventName} from "./stores/event";
 
-    onMount(() => {
+    const loadEventJSON = async () => {
+        if (window.electronAPI) {
+            const eventInfo = await window.electronAPI.openFile()
+            console.log('event', eventInfo)
+        } else {
+            console.log('no electron api, can not load event json')
+        }
+    }
+
+    onMount(async () => {
+        if (!$eventName) {
+            await loadEventJSON();
+        }
         $username = 'Алексей Найден'
         loadPeople();
     });

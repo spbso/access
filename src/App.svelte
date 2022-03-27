@@ -5,8 +5,7 @@
     import Log from "./components/Log.svelte";
     import {onMount} from "svelte";
     import {username} from "./stores/user";
-    import {loadPeople, people} from "./stores/people";
-    import {fakeTickets as testData} from "./data/FakeTickets";
+    import {loadPeople} from "./stores/people";
     import {currentPerson} from "./stores/currentPerson";
     import Header from "./components/Header.svelte";
     import {page} from "./stores/page";
@@ -18,6 +17,16 @@
             const eventInfo = await window.electronAPI.openFile()
             console.log('event', eventInfo)
             loadPeople(eventInfo)
+        } else {
+            console.log('no electron api, can not load event json')
+        }
+    }
+
+    const processCards = () => {
+        if (window.electronAPI) {
+            const eventInfo = window.electronAPI.handleCardScan((uid) => {
+                alert(`Scanned card ${uid}`)
+            })
         } else {
             console.log('no electron api, can not load event json')
         }
@@ -75,7 +84,7 @@
             {/if}
             <Log/>
         {:else}
-            <List />
+            <List/>
         {/if}
     </div>
 </main>

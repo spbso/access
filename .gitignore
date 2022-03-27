@@ -1,6 +1,7 @@
 /node_modules/
 /public/build/
 /dist/
-/public/log*.json
+/public/logs/log*.json
+.yarn/
 
 .DS_Store

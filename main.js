@@ -2,9 +2,12 @@ const {app, BrowserWindow, ipcMain, dialog, Menu} = require('electron')
 const path = require('path')
 const url = require('url')
 const fs = require('fs')
-const {parse} = require('csv-parse/sync')
+const {parse: parseCsv} = require('csv-parse/sync')
 const {parse: parseDate} = require('date-fns');
+const { NFC } = require('nfc-pcsc');
 
+
+const nfc = new NFC(); // optionally you can pass logger
 
 const isDev = require('electron-is-dev');
 
@@ -16,9 +19,11 @@ if (isDev) {
     });
 }
 
+let win;
+
 function createWindow() {
     // Create the browser window with node integration
-    const win = new BrowserWindow({
+    win = new BrowserWindow({
         width: 1100,
         height: 700,
         webPreferences: {
@@ -90,7 +95,7 @@ async function handleFileOpen() {
         return
     } else {
         const contents = fs.readFileSync(filePaths[0], {encoding: 'utf8', flag: 'r'})
-        const records = parse(contents, {
+        const records = parseCsv(contents, {
             columns: ['id', 'uid', 'fio', 'brigade', 'rso', 'ticket'],
             from: 2,
             skip_empty_lines: true,
@@ -108,3 +113,22 @@ async function handleFileOpen() {
         return records
     }
 }
+
+
+
+nfc.on('reader', reader => {
+    console.log(reader.name + ' reader attached, waiting for cards ...');
+    reader.on('card', card => {
+        console.log(card.uid);
+        win.webContents.send('card-scan', card.uid);
+    });
+    reader.on('error', err => {
+        console.error('reader error', err);
+    });
+    reader.on('end', () => {
+        console.log(reader.name + ' reader disconnected.');
+    });
+});
+nfc.on('error', err => {
+    console.error(err);
+});

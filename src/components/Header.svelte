@@ -3,7 +3,7 @@
     import {user} from '@martinse/svelte-heroicons/dist/solid';
     import {username} from "../stores/user";
     import {currentPerson} from "../stores/currentPerson";
-    import {peopleById} from "../stores/people";
+    import {peopleByUid} from "../stores/people";
     import {page} from "../stores/page";
     import {log} from "../stores/log";
     import {onMount} from "svelte";
@@ -15,7 +15,7 @@
     let loginVisible = false
 
     const checkCard = () => {
-        $currentPerson = $peopleById.get(freshCardId);
+        $currentPerson = $peopleByUid.get(freshCardId);
         log($currentPerson)
         if (window.electronAPI) {
             window.electronAPI.logPerson($currentPerson)

@@ -7,7 +7,6 @@ export type LogRecord =
         id: string;
         fio: string;
         brigade: string;
-        qr: boolean;
         rso: boolean;
         ticket: boolean;
     }
@@ -21,7 +20,6 @@ export const log = (person: Person) => {
             id: person.id,
             fio: person.fio,
             brigade: person.brigade,
-            qr: person.isQrValid(),
             rso: person.isRsoValid(),
             ticket: person.ticket
         },

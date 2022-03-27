@@ -1,33 +1,31 @@
 import {derived, writable} from "svelte/store"
-import {fakeTickets as testData} from "../data/FakeTickets"
 import {formatDistance} from 'date-fns'
 import {ru} from 'date-fns/locale'
 
 
 export class Person {
     id: string;
+    uid: string
     fio: string;
     brigade: string;
     ticket: boolean;
-    rso?: number;
-    qr?: number;
+    rso?: Date;
 
-    constructor({id, fio, brigade, ticket, rso, qr}) {
+    constructor({id, uid, fio, brigade, ticket, rso}) {
         this.id = id
+        this.uid = uid
         this.fio = fio
         this.brigade = brigade
         this.ticket = ticket
         this.rso = rso
-        this.qr = qr
     }
 
     isValid(): boolean {
-        return this.isRsoValid() && this.isQrValid() && this.ticket
+        return this.isRsoValid() && this.ticket
     }
 
     isRsoValid(): boolean {
-        const timestamp = Number(new Date()) / 1000
-        return (this.rso ?? 0) >= timestamp
+        return (this.rso ?? 0) >= new Date()
     }
 
     rsoDetails(): string {
@@ -35,24 +33,7 @@ export class Person {
             return ""
         } else {
             if (this.rso ?? 0 > 0) {
-                return `истекло ${formatDistance(this.rso * 1000, new Date(), {addSuffix: true, locale: ru})}`
-            } else {
-                return "нет данных"
-            }
-        }
-    }
-
-    isQrValid(): boolean {
-        const timestamp = Number(new Date()) / 1000
-        return (this.qr ?? 0) >= timestamp
-    }
-
-    qrDetails(): string {
-        if (this.isQrValid()) {
-            return ""
-        } else {
-            if (this.qr ?? 0 > 0) {
-                return `закончился ${formatDistance(this.qr * 1000, new Date(), {addSuffix: true, locale: ru})}`
+                return `истекло ${formatDistance(this.rso, new Date(), {addSuffix: true, locale: ru})}`
             } else {
                 return "нет данных"
             }
@@ -62,13 +43,13 @@ export class Person {
 
 export const people = writable<Person[]>([]);
 
-export const loadPeople = (): void => {
-    const parsedPeople = testData.map((item) => new Person(item))
+export const loadPeople = (data): void => {
+    const parsedPeople = data.map((item) => new Person(item))
     people.set(parsedPeople)
 }
 
-export const peopleById = derived(people, (peeps) => {
+export const peopleByUid = derived(people, (peeps) => {
     const result = new Map<string, Person>()
-    peeps.forEach(p => result.set(p.id, p))
+    peeps.forEach(p => result.set(p.uid, p))
     return result
 })

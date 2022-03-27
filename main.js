@@ -2,6 +2,8 @@ const {app, BrowserWindow, ipcMain, dialog, Menu} = require('electron')
 const path = require('path')
 const url = require('url')
 const fs = require('fs')
+const {parse} = require('csv-parse/sync')
+const {parse: parseDate} = require('date-fns');
 
 
 const isDev = require('electron-is-dev');
@@ -56,16 +58,16 @@ function createWindow() {
 
     // Open the DevTools only if app is in development
     // If in production, don't show.
-    // if (isDev)
-    //     win.webContents.openDevTools()
+    if (isDev)
+        win.webContents.openDevTools()
 }
 
 app.whenReady().then(() => {
     const timestamp = Number(new Date())
-    const logFile = fs.createWriteStream(path.join(__dirname, `public/log-${timestamp}.json`))
+    const logFile = fs.createWriteStream(path.join(__dirname, `public/logs/log-${timestamp}.json`))
 
     ipcMain.handle('log-person', (_event, value) => {
-        // TODO: Add timestamp + consider CSV
+        value.timestamp = new Date()
         logFile.write(JSON.stringify(value) + "\n")
     })
 
@@ -88,7 +90,21 @@ async function handleFileOpen() {
         return
     } else {
         const contents = fs.readFileSync(filePaths[0], {encoding: 'utf8', flag: 'r'})
-        const data = JSON.parse(contents)
-        return data
+        const records = parse(contents, {
+            columns: ['id', 'uid', 'fio', 'brigade', 'rso', 'ticket'],
+            from: 2,
+            skip_empty_lines: true,
+            cast: (value, context) => {
+                if (context.column === "ticket") {
+                    return value === "TRUE"
+                } else if (context.column === "rso") {
+                    return value ? parseDate(value, 'dd.MM.yyyy', new Date()) : null
+                } else {
+                    return value
+                }
+            }
+        })
+        console.log('records', records)
+        return records
     }
 }

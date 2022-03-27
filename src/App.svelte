@@ -6,6 +6,7 @@
     import {onMount} from "svelte";
     import {username} from "./stores/user";
     import {loadPeople, people} from "./stores/people";
+    import {fakeTickets as testData} from "./data/FakeTickets";
     import {currentPerson} from "./stores/currentPerson";
     import Header from "./components/Header.svelte";
     import {page} from "./stores/page";
@@ -16,17 +17,21 @@
         if (window.electronAPI) {
             const eventInfo = await window.electronAPI.openFile()
             console.log('event', eventInfo)
+            loadPeople(eventInfo)
         } else {
             console.log('no electron api, can not load event json')
         }
     }
 
     onMount(async () => {
+        // TODO: Remove after tests
+        $username = 'Алексей Найден'
+
         if (!$eventName) {
             await loadEventJSON();
         }
-        $username = 'Алексей Найден'
-        loadPeople();
+
+        // loadPeople(testData);
     });
 </script>
 

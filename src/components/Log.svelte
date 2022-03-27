@@ -20,18 +20,15 @@
             <th class="w-32">Результат</th>
         </tr>
         </thead>
-        <tbody class="text-center">
+        <tbody class="text-left">
         {#each $logRecords as record}
             <tr class="hover:bg-slate-200">
                 <td>{format(record.timestamp * 1000, 'HH:mm:ss', {locale: ru})}</td>
                 <td>{record.fio}</td>
                 <td>{record.brigade}</td>
-                <td>
+                <td class="text-center">
                     <abbr title="Наличие билета">
                         <Heroicon icon={ticket} class={classForIcon(record.ticket)}/>
-                    </abbr>
-                    <abbr title="Действительный QR-код">
-                        <Heroicon icon={qrcode} class={classForIcon(record.qr)}/>
                     </abbr>
                     <abbr title="Членство в РСО">
                         <Heroicon icon={document} class={classForIcon(record.rso)}/>

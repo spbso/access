@@ -39,28 +39,20 @@
         <th>ФИО</th>
         <th>Отряд</th>
         <th>Билет</th>
-        <th>QR-код</th>
         <th>Членство в РСО</th>
     </tr>
     </thead>
     <tbody class="text-center">
     {#each sortedPeople as person}
         <tr class="hover:bg-slate-200">
-            <td class={person.isValid() ? 'text-green-600' : 'text-rose-900'}>{person.fio}</td>
-            <td>{person.brigade}</td>
+            <td class="text-left {person.isValid() ? 'text-green-600' : 'text-rose-900'}">{person.fio}</td>
+            <td class="text-left">{person.brigade}</td>
             <td class={person.ticket ? '' : 'text-rose-900'}>
                 <Heroicon icon={person.ticket ? check : x}/>
             </td>
-            <td class={person.isQrValid() ? '' : 'text-rose-900'}>
-                {#if person.qr}
-                    {format(person.qr * 1000, 'dd MMMM yyyy', {locale: ru})}
-                {:else}
-                    Нет данных
-                {/if}
-            </td>
             <td class={person.isRsoValid() ? '' : 'text-rose-900'}>
                 {#if person.rso}
-                    {format(person.rso * 1000, 'dd MMMM yyyy', {locale: ru})}
+                    {format(person.rso, 'dd MMMM yyyy', {locale: ru})}
                 {:else}
                     Нет данных
                 {/if}

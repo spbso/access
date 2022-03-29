@@ -40,7 +40,6 @@
     "atcss": "^2.0.0",
     "autoprefixer": "^10.4.2",
     "concurrently": "^7.0.0",
-    "electron": "17.0.0",
     "electron-builder": "^22.14.13",
     "electron-rebuild": "^3.2.7",
     "node-sass": "^7.0.1",

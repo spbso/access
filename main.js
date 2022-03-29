@@ -4,7 +4,7 @@ const url = require('url')
 const fs = require('fs')
 const {parse: parseCsv} = require('csv-parse/sync')
 const {parse: parseDate} = require('date-fns');
-const { NFC } = require('nfc-pcsc');
+const {NFC} = require('nfc-pcsc');
 
 
 const nfc = new NFC(); // optionally you can pass logger
@@ -67,7 +67,7 @@ function createWindow() {
         win.webContents.openDevTools()
 }
 
-app.whenReady().then(() => {
+function initLogging() {
     const timestamp = Number(new Date())
     const logFile = fs.createWriteStream(path.join(__dirname, `public/logs/log-${timestamp}.json`))
 
@@ -75,6 +75,10 @@ app.whenReady().then(() => {
         value.timestamp = new Date()
         logFile.write(JSON.stringify(value) + "\n")
     })
+}
+
+app.whenReady().then(() => {
+    // initLogging();
 
     ipcMain.handle('dialog:openFile', handleFileOpen)
 
@@ -90,7 +94,7 @@ app.on('window-all-closed', function () {
 })
 
 async function handleFileOpen() {
-    const {canceled, filePaths} = await dialog.showOpenDialog()
+    const {canceled, filePaths} = await dialog.showOpenDialog(win)
     if (canceled) {
         return
     } else {
@@ -113,7 +117,6 @@ async function handleFileOpen() {
         return records
     }
 }
-
 
 
 nfc.on('reader', reader => {

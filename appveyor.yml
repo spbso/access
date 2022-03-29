@@ -1,6 +1,6 @@
+os: unstable
 cache:
   - node_modules
-  -
 environment:
   nodejs_version: "16"
 
@@ -8,9 +8,14 @@ install:
   - ps: Install-Product node $env:nodejs_version
   - npm install
 
+matrix:
+  fast_finish: true
+
 test_script:
   - node --version
   - npm --version
   - npm run dist:win
 
-build: false
+build: off
+shallow_clone: true
+clone_depth: 1

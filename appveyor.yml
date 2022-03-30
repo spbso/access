@@ -7,11 +7,16 @@ cache:
   - node_modules
   - '%USERPROFILE%\.electron'
 
+environment:
+  GH_TOKEN:
+    secure: cHuWutvkmH6+PBH7vvmz6g6qvFvRzDnPkR0JZRTM21T5YQIOxgrrtQxQljRXtPJh
+
 init:
   - git config --global core.autocrlf input
 
 install:
   - ps: Install-Product node 16 x64
+  - set CI=true
   - yarn
 
 build_script:

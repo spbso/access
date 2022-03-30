@@ -1,3 +1,4 @@
+
 const {app, BrowserWindow, ipcMain, dialog, Menu} = require('electron')
 const path = require('path')
 const url = require('url')
@@ -142,3 +143,12 @@ async function handleFileOpen() {
 // nfc.on('error', err => {
 //     console.error(err);
 // });
+
+const { poll, DeviceInfo } = require(`nfc-poll-wrapper`);
+
+const instance = poll();
+
+instance.on("device", ({ raw, UID, NFCIDversion }) => {
+    console.info("Device ID:", UID, "v", NFCIDversion);
+    win.webContents.send('card-scan', UID);
+});

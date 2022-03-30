@@ -26,6 +26,7 @@
     "electron-is-dev": "^2.0.0",
     "electron-reload": "^2.0.0-alpha.1",
     "nanostores": "^0.5.10",
+    "nfc-poll-wrapper": "^1.0.2",
     "postcss-preset-env": "^7.4.1",
     "remote": "^0.2.6"
   },

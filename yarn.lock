@@ -1924,6 +1924,11 @@ estree-walker@^2.0.1:
   resolved "https://registry.npmjs.org/estree-walker/-/estree-walker-2.0.2.tgz"
   integrity sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==
 
+eventemitter3@^4.0.7:
+  version "4.0.7"
+  resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-4.0.7.tgz#2de9b68f6528d5644ef5c59526a1b4a07306169f"
+  integrity sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw==
+
 execall@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/execall/-/execall-2.0.0.tgz"
@@ -3496,6 +3501,13 @@ negotiator@^0.6.2:
   version "0.6.3"
   resolved "https://registry.npmjs.org/negotiator/-/negotiator-0.6.3.tgz"
   integrity sha512-+EUsqGPLsM+j/zdChZjsnX51g4XrHFOIXwfnCVPGlQk/k5giakcKsuxCObBRu6DSm9opw/O6slWbJdghQM4bBg==
+
+nfc-poll-wrapper@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/nfc-poll-wrapper/-/nfc-poll-wrapper-1.0.2.tgz#c1a8557ed7e3e9d90fdee9c3f60cad0fb8628c69"
+  integrity sha512-Yo1PPWIF1mW3m2bxe/MNme9gcFDDVGm1lSXlg7mXYVl/WZbYou7ieuOB2bTelip2em1ikHiL6OOq7DY8vbJRRg==
+  dependencies:
+    eventemitter3 "^4.0.7"
 
 node-abi@^3.0.0:
   version "3.8.0"

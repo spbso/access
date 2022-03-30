@@ -12,10 +12,11 @@
     "dev": "concurrently \"rollup -c -w\" \"yarn watch:tailwind\"",
     "start": "sirv public --no-clear",
     "app": "electron .",
-    "dist:mac": "electron-builder --dir --mac --config electron-builder.yml",
-    "dist:win": "electron-builder --dir --win --config electron-builder.yml",
+    "dist:mac": "electron-builder --dir --mac --config electron-builder.yml -p onTagOrDraft",
+    "dist:win": "electron-builder --dir --win --config electron-builder.yml -p onTagOrDraft",
     "app-dev": "concurrently \"yarn:dev\" \"yarn:app\" \"yarn watch:tailwind\"",
-    "check": "svelte-check --tsconfig ./tsconfig.json"
+    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "postinstall": "electron-builder install-app-deps"
   },
   "dependencies": {
     "@martinse/svelte-heroicons": "^0.1.4",
@@ -41,7 +42,6 @@
     "concurrently": "^7.0.0",
     "electron": "^18.0.0",
     "electron-builder": "^22.14.13",
-    "electron-rebuild": "^3.2.7",
     "node-sass": "^7.0.1",
     "postcss": "^8.4.5",
     "postcss-annotation-include": "^1.0.0",

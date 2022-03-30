@@ -19,7 +19,6 @@
   },
   "dependencies": {
     "@martinse/svelte-heroicons": "^0.1.4",
-    "@pokusew/pcsclite": "^0.6.0",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "cross-env": "^7.0.3",
     "csv-parse": "^5.0.4",
@@ -27,7 +26,6 @@
     "electron-is-dev": "^2.0.0",
     "electron-reload": "^2.0.0-alpha.1",
     "nanostores": "^0.5.10",
-    "nfc-pcsc": "^0.8.1",
     "postcss-preset-env": "^7.4.1",
     "remote": "^0.2.6"
   },
@@ -40,6 +38,7 @@
     "atcss": "^2.0.0",
     "autoprefixer": "^10.4.2",
     "concurrently": "^7.0.0",
+    "electron": "^18.0.0",
     "electron-builder": "^22.14.13",
     "electron-rebuild": "^3.2.7",
     "node-sass": "^7.0.1",

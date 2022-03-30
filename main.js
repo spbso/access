@@ -4,10 +4,8 @@ const url = require('url')
 const fs = require('fs')
 const {parse: parseCsv} = require('csv-parse/sync')
 const {parse: parseDate} = require('date-fns');
-const {NFC} = require('nfc-pcsc');
 
 
-const nfc = new NFC(); // optionally you can pass logger
 
 const isDev = require('electron-is-dev');
 
@@ -96,7 +94,11 @@ app.on('window-all-closed', function () {
 async function handleFileOpen() {
     const {canceled, filePaths} = await dialog.showOpenDialog(win)
     if (canceled) {
-        return
+        console.log('cancelled')
+        return {
+            path: null,
+            people: []
+        }
     } else {
         const contents = fs.readFileSync(filePaths[0], {encoding: 'utf8', flag: 'r'})
         const records = parseCsv(contents, {
@@ -114,24 +116,29 @@ async function handleFileOpen() {
             }
         })
         console.log('records', records)
-        return records
+        return {
+            path: path.dirname(filePaths[0]),
+            people: records
+        }
     }
 }
 
 
-nfc.on('reader', reader => {
-    console.log(reader.name + ' reader attached, waiting for cards ...');
-    reader.on('card', card => {
-        console.log(card.uid);
-        win.webContents.send('card-scan', card.uid);
-    });
-    reader.on('error', err => {
-        console.error('reader error', err);
-    });
-    reader.on('end', () => {
-        console.log(reader.name + ' reader disconnected.');
-    });
-});
-nfc.on('error', err => {
-    console.error(err);
-});
+// const {NFC} = require('nfc-pcsc');
+// const nfc = new NFC(); // optionally you can pass logger
+// nfc.on('reader', reader => {
+//     console.log(reader.name + ' reader attached, waiting for cards ...');
+//     reader.on('card', card => {
+//         console.log(card.uid);
+//         win.webContents.send('card-scan', card.uid);
+//     });
+//     reader.on('error', err => {
+//         console.error('reader error', err);
+//     });
+//     reader.on('end', () => {
+//         console.log(reader.name + ' reader disconnected.');
+//     });
+// });
+// nfc.on('error', err => {
+//     console.error(err);
+// });

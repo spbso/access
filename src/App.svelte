@@ -11,33 +11,40 @@
     import {page} from "./stores/page";
     import List from "./components/List.svelte";
     import {eventName} from "./stores/event";
+    import {photoPath} from "./stores/photoPath";
 
     const loadEventJSON = async () => {
         if (window.electronAPI) {
-            const eventInfo = await window.electronAPI.openFile()
-            console.log('event', eventInfo)
-            loadPeople(eventInfo)
+            const {path, people} = await window.electronAPI.openFile()
+            console.log('path', path)
+            console.log('people', people)
+            loadPeople(people)
+            $photoPath = path;
+            $eventName = 'Весенний слёт СПбСО'
         } else {
             console.log('no electron api, can not load event json')
         }
+        console.log('end of load event json')
     }
 
-    const processCards = () => {
-        if (window.electronAPI) {
-            const eventInfo = window.electronAPI.handleCardScan((uid) => {
-                alert(`Scanned card ${uid}`)
-            })
-        } else {
-            console.log('no electron api, can not load event json')
-        }
-    }
+    // const processCards = () => {
+    //     if (window.electronAPI) {
+    //         const eventInfo = window.electronAPI.handleCardScan((uid) => {
+    //             alert(`Scanned card ${uid}`)
+    //         })
+    //     } else {
+    //         console.log('no electron api, can not load event json')
+    //     }
+    // }
 
     onMount(async () => {
         // TODO: Remove after tests
         $username = 'Алексей Найден'
 
         if (!$eventName) {
+            console.log('load event json')
             await loadEventJSON();
+            console.log('post load event json')
         }
 
         // loadPeople(testData);

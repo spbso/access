@@ -11,3 +11,4 @@ mac:
 
 win:
   target: "portable"
+  icon: "public/icons/Icon.png"

@@ -29,7 +29,7 @@
 
     const processCards = () => {
         if (window.electronAPI) {
-            window.electronAPI.handleCardScan((uid: string) => {
+            window.electronAPI.handleCardScan((event, uid: string) => {
                 console.log(`Scanned card:`, uid)
                 if (uid) {
                     const cardUid = uid.trim().toLocaleLowerCase()
@@ -42,13 +42,10 @@
     }
 
     onMount(async () => {
-        // TODO: Remove after tests
         // $username = 'Алексей Найден'
 
         if (!$eventName) {
-            console.log('load event json')
             await loadEventJSON();
-            console.log('post load event json')
         }
 
         processCards();

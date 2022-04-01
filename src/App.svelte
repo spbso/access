@@ -51,7 +51,7 @@
             console.log('post load event json')
         }
 
-        // loadPeople(testData);
+        processCards();
     });
 </script>
 

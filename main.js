@@ -45,6 +45,11 @@ function createWindow() {
                     click: () => win.webContents.send('set-screen', 'list'),
                     label: "Списки"
                 },
+                {
+                    accelerator: process.platform === 'darwin' ? 'Cmd+3' : 'Ctrl+3',
+                    click: () => win.webContents.openDevTools(),
+                    label: "Я самый умный"
+                },
             ]
         }
 
@@ -129,8 +134,8 @@ const {NFC} = require('nfc-pcsc');
 const nfc = new NFC(); // optionally you can pass logger
 nfc.on('reader', reader => {
     console.log(reader.name + ' reader attached, waiting for cards ...');
-    reader.on('card', card => {
-        console.log(card.uid);
+    reader.on('card', async card => {
+        console.log('card', card.uid);
         win.webContents.send('card-scan', card.uid);
     });
     reader.on('error', err => {

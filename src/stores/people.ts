@@ -13,7 +13,7 @@ export class Person {
 
     constructor({id, uid, fio, brigade, ticket, rso}) {
         this.id = id
-        this.uid = uid
+        this.uid = (uid as string).trim().toLowerCase().substring(0, 8)
         this.fio = fio
         this.brigade = brigade
         this.ticket = ticket

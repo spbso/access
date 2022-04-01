@@ -48,7 +48,7 @@ function createWindow() {
                 {
                     accelerator: process.platform === 'darwin' ? 'Cmd+3' : 'Ctrl+3',
                     click: () => win.webContents.openDevTools(),
-                    label: "Я самый умный"
+                    label: "Я хакер"
                 },
             ]
         }

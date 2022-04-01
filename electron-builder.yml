@@ -1,4 +1,6 @@
 appId: "ru.spb.spbso.access"
+productName: "RSO Access"
+buildVersion: '0.8.0'
 
 # Package app code into a asar archive. Set to false to debug issues.
 asar: true
@@ -12,3 +14,4 @@ mac:
 win:
   target: "portable"
   icon: "public/icons/Icon.png"
+  executableName: 'rso-access'

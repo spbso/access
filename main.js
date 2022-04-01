@@ -125,24 +125,24 @@ async function handleFileOpen() {
 }
 
 
-// const {NFC} = require('nfc-pcsc');
-// const nfc = new NFC(); // optionally you can pass logger
-// nfc.on('reader', reader => {
-//     console.log(reader.name + ' reader attached, waiting for cards ...');
-//     reader.on('card', card => {
-//         console.log(card.uid);
-//         win.webContents.send('card-scan', card.uid);
-//     });
-//     reader.on('error', err => {
-//         console.error('reader error', err);
-//     });
-//     reader.on('end', () => {
-//         console.log(reader.name + ' reader disconnected.');
-//     });
-// });
-// nfc.on('error', err => {
-//     console.error(err);
-// });
+const {NFC} = require('nfc-pcsc');
+const nfc = new NFC(); // optionally you can pass logger
+nfc.on('reader', reader => {
+    console.log(reader.name + ' reader attached, waiting for cards ...');
+    reader.on('card', card => {
+        console.log(card.uid);
+        win.webContents.send('card-scan', card.uid);
+    });
+    reader.on('error', err => {
+        console.error('reader error', err);
+    });
+    reader.on('end', () => {
+        console.log(reader.name + ' reader disconnected.');
+    });
+});
+nfc.on('error', err => {
+    console.error(err);
+});
 
 // (function() {
 //     var childProcess = require("child_process");

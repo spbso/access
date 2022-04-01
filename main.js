@@ -67,17 +67,17 @@ function createWindow() {
 }
 
 function initLogging() {
-    const timestamp = Number(new Date())
-    const logFile = fs.createWriteStream(path.join(__dirname, `public/logs/log-${timestamp}.json`))
+    // const timestamp = Number(new Date())
+    // const logFile = fs.createWriteStream(path.join(__dirname, `public/logs/log-${timestamp}.json`))
 
     ipcMain.handle('log-person', (_event, value) => {
-        value.timestamp = new Date()
-        logFile.write(JSON.stringify(value) + "\n")
+        // value.timestamp = new Date()
+        // logFile.write(JSON.stringify(value) + "\n")
     })
 }
 
 app.whenReady().then(() => {
-    // initLogging();
+    initLogging();
 
     ipcMain.handle('dialog:openFile', handleFileOpen)
 
@@ -144,11 +144,23 @@ async function handleFileOpen() {
 //     console.error(err);
 // });
 
-const { poll, DeviceInfo } = require(`nfc-poll-wrapper`);
+// (function() {
+//     var childProcess = require("child_process");
+//     var oldSpawn = childProcess.spawn;
+//     function mySpawn() {
+//         console.log('spawn called');
+//         console.log(arguments);
+//         var result = oldSpawn.apply(this, arguments);
+//         return result;
+//     }
+//     childProcess.spawn = mySpawn;
+// })();
 
-const instance = poll();
+// const { poll, DeviceInfo } = require(`nfc-poll-wrapper`);
 
-instance.on("device", ({ raw, UID, NFCIDversion }) => {
-    console.info("Device ID:", UID, "v", NFCIDversion);
-    win.webContents.send('card-scan', UID);
-});
+// const instance = poll();
+
+// instance.on("device", ({ raw, UID, NFCIDversion }) => {
+//     console.info("Device ID:", UID, "v", NFCIDversion);
+//     win.webContents.send('card-scan', UID);
+// });

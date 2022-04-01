@@ -10,15 +10,22 @@
 
     export let eventName: string;
 
-    let freshCardId: string = null
+    let freshCardId = '';
     let usernameValue = ''
     let loginVisible = false
 
     const checkCard = () => {
         $currentPerson = $peopleByUid.get(freshCardId);
+        freshCardId = '';
         log($currentPerson)
         if (window.electronAPI) {
             window.electronAPI.logPerson($currentPerson)
+        }
+    }
+
+    const handleKeydown = (e: KeyboardEvent) => {
+        if (e.key === "Enter") {
+            checkCard();
         }
     }
 
@@ -37,8 +44,8 @@
         <div class="font-bold text-2xl">СПбСО</div>
         <div class="text-xl text-silver ml-3">{eventName}</div>
         <div class="ml-auto">
-            <input type="text" bind:value={freshCardId} class="text-black rounded-xl px-2 w-16"/>
-            <button class="hover:bg-indigo-700 px-2 rounded-lg" on:click={checkCard}>Проверить</button>
+            <input type="text" placeholder="ID карточки" bind:value={freshCardId} class="text-black rounded-xl px-2 w-32" on:keydown={handleKeydown}/>
+            <!-- <button class="hover:bg-indigo-700 px-2 rounded-lg" on:click={checkCard}>Проверить</button> -->
         </div>
         <nav>
             <ul class="list-none flex cursor-pointer">

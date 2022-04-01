@@ -51,7 +51,7 @@
     });
 </script>
 
-<Header eventName="Бал"/>
+<Header eventName="Слёт СПбСО"/>
 
 <main>
     <div class="container mx-auto">

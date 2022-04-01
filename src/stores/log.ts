@@ -13,16 +13,18 @@ export type LogRecord =
 
 export const logRecords = writable<LogRecord[]>([])
 
-export const log = (person: Person) => {
-    logRecords.update((existing) => [
-        {
-            timestamp: Number(new Date()) / 1000,
-            id: person.id,
-            fio: person.fio,
-            brigade: person.brigade,
-            rso: person.isRsoValid(),
-            ticket: person.ticket
-        },
-        ...existing
-    ])
+export const log = (person: Person | null) => {
+    if (person) {
+        logRecords.update((existing) => [
+            {
+                timestamp: Number(new Date()) / 1000,
+                id: person.id,
+                fio: person.fio,
+                brigade: person.brigade,
+                rso: person.isRsoValid(),
+                ticket: person.ticket
+            },
+            ...existing
+        ])
+    }
 }

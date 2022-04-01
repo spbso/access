@@ -489,6 +489,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .ml-3 {
   margin-left: 0.75rem;
 }
+.ml-6 {
+  margin-left: 1.5rem;
+}
 .ml-auto {
   margin-left: auto;
 }
@@ -563,6 +566,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .gap-4 {
   gap: 1rem;
 }
+.self-center {
+  align-self: center;
+}
 .overflow-y-auto {
   overflow-y: auto;
 }
@@ -593,6 +599,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 .bg-indigo-500 {
   --tw-bg-opacity: 1;
   background-color: rgba(99, 102, 241, var(--tw-bg-opacity));
+}
+.bg-rose-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgba(244, 63, 94, var(--tw-bg-opacity));
 }
 .bg-white {
   --tw-bg-opacity: 1;

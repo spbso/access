@@ -6,7 +6,7 @@
     import {onMount} from "svelte";
     import {username} from "./stores/user";
     import {loadPeople} from "./stores/people";
-    import {currentPerson} from "./stores/currentPerson";
+    import {currentCardUid, currentPerson} from "./stores/currentPerson";
     import Header from "./components/Header.svelte";
     import {page} from "./stores/page";
     import List from "./components/List.svelte";
@@ -27,19 +27,23 @@
         console.log('end of load event json')
     }
 
-    // const processCards = () => {
-    //     if (window.electronAPI) {
-    //         const eventInfo = window.electronAPI.handleCardScan((uid) => {
-    //             alert(`Scanned card ${uid}`)
-    //         })
-    //     } else {
-    //         console.log('no electron api, can not load event json')
-    //     }
-    // }
+    const processCards = () => {
+        if (window.electronAPI) {
+            window.electronAPI.handleCardScan((uid: string) => {
+                console.log(`Scanned card:`, uid)
+                if (uid) {
+                    const cardUid = uid.trim().toLocaleLowerCase()
+                    $currentCardUid = cardUid;
+                }
+            })
+        } else {
+            console.log('no electron api, can not load event json')
+        }
+    }
 
     onMount(async () => {
         // TODO: Remove after tests
-        $username = 'Алексей Найден'
+        // $username = 'Алексей Найден'
 
         if (!$eventName) {
             console.log('load event json')
@@ -51,7 +55,7 @@
     });
 </script>
 
-<Header eventName="Слёт СПбСО"/>
+<Header/>
 
 <main>
     <div class="container mx-auto">

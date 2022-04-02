@@ -10,7 +10,7 @@
     let usernameValue = ''
     let loginVisible = false
 
-    export let checkCard = () => {
+    const checkCard = () => {
         if ($peopleByUid.has($currentCardUid)) {
             $currentPerson = $peopleByUid.get($currentCardUid);
         } else {

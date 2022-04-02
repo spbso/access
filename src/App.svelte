@@ -5,7 +5,7 @@
     import Log from "./components/Log.svelte";
     import {onMount} from "svelte";
     import {username} from "./stores/user";
-    import {loadPeople} from "./stores/people";
+    import {loadPeople, peopleByUid} from "./stores/people";
     import {currentCardUid, currentPerson} from "./stores/currentPerson";
     import Header from "./components/Header.svelte";
     import {page} from "./stores/page";
@@ -14,7 +14,21 @@
     import {photoPath} from "./stores/photoPath";
 
 
-    let checkCard = null;
+    const checkCard = () => {
+        if ($peopleByUid.has($currentCardUid)) {
+            $currentPerson = $peopleByUid.get($currentCardUid);
+        } else {
+            $currentPerson = null;
+        }
+
+        $currentCardUid = ''
+
+        console.log('current person', $currentPerson)
+
+        if (window.electronAPI) {
+            window.electronAPI.logPerson($currentPerson)
+        }
+    }
 
     const loadEventJSON = async () => {
         if (window.electronAPI) {
@@ -56,7 +70,7 @@
     });
 </script>
 
-<Header bind:checkCard/>
+<Header/>
 
 <main>
     <div class="container mx-auto">

@@ -14,6 +14,7 @@
     const checkCard = () => {
         if ($peopleByUid.has($currentCardUid)) {
             $currentPerson = $peopleByUid.get($currentCardUid);
+            log($currentPerson)
         } else {
             $currentPerson = null;
         }
@@ -21,7 +22,6 @@
         $currentCardUid = ''
 
         console.log('current person', $currentPerson)
-        log($currentPerson)
 
         if (window.electronAPI) {
             window.electronAPI.logPerson($currentPerson)

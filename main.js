@@ -67,8 +67,8 @@ function createWindow() {
 
     // Open the DevTools only if app is in development
     // If in production, don't show.
-    if (isDev)
-        win.webContents.openDevTools()
+    // if (isDev)
+    //     win.webContents.openDevTools()
 }
 
 function initLogging() {

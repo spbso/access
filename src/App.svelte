@@ -13,6 +13,9 @@
     import {eventName} from "./stores/event";
     import {photoPath} from "./stores/photoPath";
 
+
+    let checkCard = null;
+
     const loadEventJSON = async () => {
         if (window.electronAPI) {
             const {path, people} = await window.electronAPI.openFile()
@@ -34,6 +37,7 @@
                 if (uid) {
                     const cardUid = uid.trim().toLocaleLowerCase()
                     $currentCardUid = cardUid;
+                    checkCard()
                 }
             })
         } else {
@@ -42,7 +46,7 @@
     }
 
     onMount(async () => {
-        // $username = 'Алексей Найден'
+        $username = 'Владимир Розов'
 
         if (!$eventName) {
             await loadEventJSON();
@@ -52,7 +56,7 @@
     });
 </script>
 
-<Header/>
+<Header bind:checkCard/>
 
 <main>
     <div class="container mx-auto">

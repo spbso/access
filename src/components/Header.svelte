@@ -6,6 +6,7 @@
     import {peopleByUid} from "../stores/people";
     import {page} from "../stores/page";
     import {eventName} from "../stores/event";
+    import {log} from "../stores/log";
 
     let usernameValue = ''
     let loginVisible = false
@@ -20,6 +21,7 @@
         $currentCardUid = ''
 
         console.log('current person', $currentPerson)
+        log($currentPerson)
 
         if (window.electronAPI) {
             window.electronAPI.logPerson($currentPerson)

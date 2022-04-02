@@ -12,6 +12,7 @@
     import List from "./components/List.svelte";
     import {eventName} from "./stores/event";
     import {photoPath} from "./stores/photoPath";
+    import {log} from "./stores/log";
 
 
     const checkCard = () => {
@@ -24,6 +25,7 @@
         $currentCardUid = ''
 
         console.log('current person', $currentPerson)
+        log($currentPerson)
 
         if (window.electronAPI) {
             window.electronAPI.logPerson($currentPerson)
@@ -60,7 +62,7 @@
     }
 
     onMount(async () => {
-        $username = 'Владимир Розов'
+        // $username = 'Владимир Розов'
 
         if (!$eventName) {
             await loadEventJSON();

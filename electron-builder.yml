@@ -1,11 +1,10 @@
 appId: "ru.spb.spbso.access"
 productName: "RSO Access"
-buildVersion: '0.8.0'
+buildVersion: '0.9.0'
 
 # Package app code into a asar archive. Set to false to debug issues.
-asar: true
+asar: false
 
-# Mac OS configuration
 mac:
   icon: "public/icons/AppIcon.icns"
   category: "public.app-category.utilities"

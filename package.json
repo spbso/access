@@ -13,7 +13,8 @@
     "start": "sirv public --no-clear",
     "app": "electron .",
     "dist:mac": "electron-builder --dir --mac --config electron-builder.yml -p onTagOrDraft",
-    "dist:win": "electron-builder --dir --win --config electron-builder.yml -p onTagOrDraft",
+    "dist:win": "electron-builder --dir --win --x64 --ia32 --config electron-builder.yml -p onTagOrDraft",
+    "dist:win-installer": "electron-builder --dir --win --x64 --ia32 --config electron-builder-installer.yml -p onTagOrDraft",
     "app-dev": "concurrently \"yarn:dev\" \"yarn:app\" \"yarn watch:tailwind\"",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "postinstall": "electron-builder install-app-deps"

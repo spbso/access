@@ -1,11 +1,10 @@
-
 const {app, BrowserWindow, ipcMain, dialog, Menu} = require('electron')
 const path = require('path')
 const url = require('url')
 const fs = require('fs')
 const {parse: parseCsv} = require('csv-parse/sync')
+const {stringify} = require('csv-stringify');
 const {parse: parseDate} = require('date-fns');
-
 
 
 const isDev = require('electron-is-dev');
@@ -72,12 +71,25 @@ function createWindow() {
 }
 
 function initLogging() {
-    // const timestamp = Number(new Date())
-    // const logFile = fs.createWriteStream(path.join(__dirname, `public/logs/log-${timestamp}.json`))
+    const timestamp = Number(new Date())
+    // const logFile = fs.createWriteStream(path.join(__dirname, `log-${timestamp}.json`))
+    const logFile = fs.createWriteStream(path.join(__dirname, `log-${timestamp}.csv`))
 
     ipcMain.handle('log-person', (_event, value) => {
-        // value.timestamp = new Date()
+        if (!value) {
+            console.log('no person to log')
+            return
+        }
+        value.timestamp = new Date().toISOString()
         // logFile.write(JSON.stringify(value) + "\n")
+        stringify([value], (err, data) => {
+            if (err) {
+                console.log('log error', err)
+            } else {
+                console.log('csv data', data)
+                logFile.write(data)
+            }
+        })
     })
 }
 
